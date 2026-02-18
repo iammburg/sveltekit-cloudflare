@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import type { PageServerLoad } from './$types';
-import { auth } from '$lib/server/auth';
 import { APIError } from 'better-auth';
+import { isRedirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
@@ -18,7 +18,7 @@ export const actions: Actions = {
 		const password = formData.get('password')?.toString() ?? '';
 
 		try {
-			await auth.api.signInEmail({
+			await event.locals.auth.api.signInEmail({
 				body: {
 					email,
 					password,
@@ -26,9 +26,11 @@ export const actions: Actions = {
 				}
 			});
 		} catch (error) {
+			if (isRedirect(error)) throw error;
 			if (error instanceof APIError) {
 				return fail(400, { message: error.message || 'Signin failed' });
 			}
+			console.error('[signInEmail] Unexpected error:', error);
 			return fail(500, { message: 'Unexpected error' });
 		}
 
@@ -41,7 +43,7 @@ export const actions: Actions = {
 		const name = formData.get('name')?.toString() ?? '';
 
 		try {
-			await auth.api.signUpEmail({
+			await event.locals.auth.api.signUpEmail({
 				body: {
 					email,
 					password,
@@ -50,9 +52,11 @@ export const actions: Actions = {
 				}
 			});
 		} catch (error) {
+			if (isRedirect(error)) throw error;
 			if (error instanceof APIError) {
 				return fail(400, { message: error.message || 'Registration failed' });
 			}
+			console.error('[signUpEmail] Unexpected error:', error);
 			return fail(500, { message: 'Unexpected error' });
 		}
 
