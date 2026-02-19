@@ -51,7 +51,7 @@
 		</form>
 		<p class="mt-4 text-center text-sm text-gray-600">
 			Already have an account?
-			<a href="/demo/better-auth/login" class="text-blue-600 hover:underline">Sign in</a>
+			<a href="/login" class="text-blue-600 hover:underline">Sign in</a>
 		</p>
 	</div>
 </div>

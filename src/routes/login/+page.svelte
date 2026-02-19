@@ -41,7 +41,7 @@
 		</form>
 		<p class="mt-4 text-center text-sm text-gray-600">
 			Don't have an account?
-			<a href="/demo/better-auth/register" class="text-blue-600 hover:underline">Register</a>
+			<a href="/register" class="text-blue-600 hover:underline">Register</a>
 		</p>
 	</div>
 </div>
