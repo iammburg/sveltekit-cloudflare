@@ -12,21 +12,22 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions: Actions = {
-	signInEmail: async (event) => {
+	signUpEmail: async (event) => {
 		const formData = await event.request.formData();
 		const email = formData.get('email')?.toString() ?? '';
 		const password = formData.get('password')?.toString() ?? '';
+		const name = formData.get('name')?.toString() ?? '';
 
 		try {
-			await event.locals.auth.api.signInEmail({
-				body: { email, password, callbackURL: '/demo/better-auth' }
+			await event.locals.auth.api.signUpEmail({
+				body: { email, password, name }
 			});
 		} catch (error) {
 			if (isRedirect(error)) throw error;
 			if (error instanceof APIError) {
-				return fail(400, { message: error.message || 'Signin failed' });
+				return fail(400, { message: error.message || 'Registration failed' });
 			}
-			console.error('[signInEmail] Unexpected error:', error);
+			console.error('[signUpEmail] Unexpected error:', error);
 			return fail(500, { message: 'Unexpected error' });
 		}
 
