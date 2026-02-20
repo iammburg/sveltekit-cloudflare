@@ -5,13 +5,10 @@
 	let { user }: { user: User | null } = $props();
 </script>
 
-<nav class="flex items-center justify-between bg-gray-100 px-6 py-3">
+<nav class="sticky top-0 z-10 flex items-center justify-between bg-gray-100 px-6 py-3">
 	<ul class="inline-flex gap-4">
 		<li><a href="/" class="hover:underline">Home</a></li>
 		<li><a href="/blog" class="hover:underline">Blog</a></li>
-		{#if user}
-			<li><a href="/blog/create" class="hover:underline">Write</a></li>
-		{/if}
 	</ul>
 
 	<div class="flex items-center gap-3">

@@ -17,6 +17,7 @@ declare global {
 			session?: Session;
 			db: DrizzleClient;
 			auth: ReturnType<typeof createAuth>;
+			flash?: { type: 'success' | 'error'; message: string };
 		}
 
 		// interface Error {}

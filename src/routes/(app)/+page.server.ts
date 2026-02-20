@@ -12,6 +12,6 @@ export const actions: Actions = {
 		await event.locals.auth.api.signOut({
 			headers: event.request.headers
 		});
-		return redirect(302, '/login');
+		return redirect(302, '/');
 	}
 };

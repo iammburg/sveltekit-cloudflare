@@ -21,6 +21,16 @@ const handleDb: Handle = async ({ event, resolve }) => {
 };
 
 const handleBetterAuth: Handle = async ({ event, resolve }) => {
+	const rawFlash = event.cookies.get('flash');
+	if (rawFlash) {
+		try {
+			event.locals.flash = JSON.parse(rawFlash);
+		} catch {
+			console.error('Invalid flash cookie');
+		}
+		event.cookies.delete('flash', { path: '/' });
+	}
+
 	const auth = createAuth(event.locals.db);
 	event.locals.auth = auth;
 
