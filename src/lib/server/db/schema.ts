@@ -12,6 +12,7 @@ export const post = sqliteTable('post', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
+	slug: text('slug').notNull().unique().default(''),
 	title: text('title').notNull(),
 	content: text('content').notNull(),
 	authorId: text('author_id').notNull(),

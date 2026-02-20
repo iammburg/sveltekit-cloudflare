@@ -18,7 +18,7 @@
 	{#if data.user?.id === data.post.authorId}
 		<div class="mt-10 flex gap-3 border-t border-gray-200 pt-6 text-sm">
 			<a
-				href="/blog/{data.post.id}/edit"
+				href="/blog/{data.post.slug}/edit"
 				class="rounded-md border border-gray-300 px-4 py-2 text-gray-700 transition hover:bg-gray-50"
 			>
 				Edit

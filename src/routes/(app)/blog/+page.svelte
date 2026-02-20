@@ -13,14 +13,13 @@
 			+ New Post
 		</a>
 	</div>
-	{console.log(data.posts)}
 	{#if data.posts.length === 0}
 		<p class="text-gray-500">No posts yet. Be the first to write!</p>
 	{:else}
 		<ul class="flex flex-col gap-4">
 			{#each data.posts as post}
 				<li class="rounded-lg border border-gray-200 p-5 shadow-sm transition hover:shadow-md">
-					<a href="/blog/{post.id}" class="block">
+					<a href="/blog/{post.slug}" class="block">
 						<h2 class="text-xl font-semibold text-gray-900">{post.title}</h2>
 						<p class="mt-1 text-sm text-gray-500">
 							By {post.authorName},

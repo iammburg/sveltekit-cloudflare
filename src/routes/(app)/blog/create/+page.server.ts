@@ -1,6 +1,7 @@
 import { redirect, fail } from '@sveltejs/kit';
 import { post } from '$lib/server/db/schema';
 import { setFlash } from '$lib/server/flash';
+import { generateSlug } from '$lib/server/slug';
 import type { PageServerLoad, Actions } from './$types';
 
 export const load: PageServerLoad = async (event) => {
@@ -22,23 +23,22 @@ export const actions: Actions = {
 			return fail(400, { message: 'Title and content are required.' });
 		}
 
-		let newPostId: string;
+		let newPostSlug: string;
 		try {
-			const [newPost] = await event.locals.db
-				.insert(post)
-				.values({
-					title,
-					content,
-					authorId: event.locals.user.id,
-					authorName: event.locals.user.name
-				})
-				.returning({ id: post.id });
-			newPostId = newPost.id;
+			const slug = generateSlug(title);
+			await event.locals.db.insert(post).values({
+				slug,
+				title,
+				content,
+				authorId: event.locals.user.id,
+				authorName: event.locals.user.name
+			});
+			newPostSlug = slug;
 		} catch {
 			return fail(500, { message: 'Failed to create post.' });
 		}
 
 		setFlash(event.cookies, { type: 'success', message: 'Post published!' });
-		return redirect(302, `/blog/${newPostId}`);
+		return redirect(302, `/blog/${newPostSlug}`);
 	}
 };

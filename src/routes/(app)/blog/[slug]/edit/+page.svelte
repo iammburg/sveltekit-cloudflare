@@ -5,7 +5,7 @@
 </script>
 
 <div class="mx-auto max-w-2xl px-4 py-8">
-	<a href="/blog/{data.post.id}" class="mb-6 inline-block text-sm text-blue-600 hover:underline">
+	<a href="/blog/{data.post.slug}" class="mb-6 inline-block text-sm text-blue-600 hover:underline">
 		&larr; Back to post
 	</a>
 
@@ -44,7 +44,7 @@
 				Save Changes
 			</button>
 			<a
-				href="/blog/{data.post.id}"
+				href="/blog/{data.post.slug}"
 				class="rounded-md border border-gray-300 px-4 py-2 text-gray-700 transition hover:bg-gray-50"
 			>
 				Cancel
